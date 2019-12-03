@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+    kompose.cmd: kompose --provider openshift convert
+    kompose.version: 1.19.0 (f63a961c)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: petclinic
+  name: petclinic
+spec:
+  replicas: 1
+  selector:
+    io.kompose.service: petclinic
+  strategy:
+    resources: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: petclinic
+    spec:
+      containers:
+      - image: ' '
+        name: petclinic
+        ports:
+        - containerPort: 8080
+        resources: {}
+      restartPolicy: Always
+  test: false
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - petclinic
+      from:
+        kind: ImageStreamTag
+        name: petclinic:latest
+    type: ImageChange
+status: {}
