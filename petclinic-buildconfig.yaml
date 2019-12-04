@@ -7,14 +7,12 @@ spec:
   triggers: 
       type: "ImageChange"
   source:
-    images:
-       from:
-        kind: "ImageStreamTag"
-        name: "samospam/petclinic:latest"
+    git:
+      uri: "https://github.com/samospam/spamyproject.git"
   strategy:
-    type: "Source" 
-    sourceStrategy:
+    type: Docker
+    dockerStrategy:
       from:
-        kind: "ImageStreamTag"
-        name: "samospam/petclinic:latest"
-      forcePull: true 
+        kind: "DockerImage"
+        name: "openjdk:8-jdk-alpine"
+      forcePull: true
